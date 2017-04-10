@@ -1,6 +1,6 @@
-![](https://circleci.com/gh/poldracklab/crn_server.svg?style=shield&circle-token=:circle-token)
-
 # CRN SERVER
+
+[![CircleCI](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_oauth.svg?style=shield&circle-token=a40c36f841be97a9545e0b7e50cb6e9a9187e173)](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_oauth)
 
 ## Configuration
 
