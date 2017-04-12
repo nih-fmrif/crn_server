@@ -1,6 +1,6 @@
 # CRN SERVER
 
-[![CircleCI](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_oauth.svg?style=shield&circle-token=a40c36f841be97a9545e0b7e50cb6e9a9187e173)](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_oauth)
+[![CircleCI](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_oauth.svg?style=shield&circle-token=c57e7206f9ae2f52d2b97da33b7a33c6f76bc41d)](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_oauth)
 
 ## Configuration
 
