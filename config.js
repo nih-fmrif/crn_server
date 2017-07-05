@@ -34,7 +34,7 @@ let config = {
         }
     },
     forbiddenRequestUrls: [
-        /agave/
+        /^https:\/\/api\.tacc\.utexas\.edu.*/
     ]
 };
 
