@@ -1,7 +1,10 @@
 import config  from '../config';
 import request from 'request-promise';
 
-const { forbiddenRequestUrls } = require('../config');
+const {
+    forbidRequests,
+    forbiddenRequestUrls
+} = require('../config');
 
 /**
  * Request
@@ -75,7 +78,7 @@ export function errbackWrapper(actionFunc) {
 }
 
 export function getFilteredRequest(url, filters, requestFunc) {
-    if (filters.some(regexp => regexp.test(url))) {
+    if (forbidRequests && filters.some(regexp => regexp.test(url))) {
         return () => {
             throw new Error('Agave calls are not permitted.');
         };
