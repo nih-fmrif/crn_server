@@ -45,28 +45,29 @@ let client = {
 
     recreate(callback) {
         console.log('Recreating AGAVE Client');
-        request.post(config.agave.url + 'clients/v2', {
-            headers: {
-                Authorization: 'Basic ' + new Buffer(config.agave.username + ':' + config.agave.password).toString('base64')
-            },
-            body: {
-                clientName:  config.agave.clientName,
-                description: config.agave.clientDescription
-            }
-        }, (err, res) => {
-            if (res.body.status == 'error') {
-                console.log('Error Creating AGAVE Client');
-                console.log(res.body.message);
-            } else {
-                // set config changes and save
-                client.config.name           = config.agave.clientName;
-                client.config.description    = config.agave.clientDescription;
-                client.config.consumerKey    = res.body.result.consumerKey;
-                client.config.consumerSecret = res.body.result.consumerSecret;
-                fs.writeFileSync('client.config.js', 'export default ' + JSON.stringify(client.config, null, 4));
-                callback();
-            }
-        });
+        callback();
+        // request.post(config.agave.url + 'clients/v2', {
+        //     headers: {
+        //         Authorization: 'Basic ' + new Buffer(config.agave.username + ':' + config.agave.password).toString('base64')
+        //     },
+        //     body: {
+        //         clientName:  config.agave.clientName,
+        //         description: config.agave.clientDescription
+        //     }
+        // }, (err, res) => {
+        //     if (res.body.status == 'error') {
+        //         console.log('Error Creating AGAVE Client');
+        //         console.log(res.body.message);
+        //     } else {
+        //         // set config changes and save
+        //         client.config.name           = config.agave.clientName;
+        //         client.config.description    = config.agave.clientDescription;
+        //         client.config.consumerKey    = res.body.result.consumerKey;
+        //         client.config.consumerSecret = res.body.result.consumerSecret;
+        //         fs.writeFileSync('client.config.js', 'export default ' + JSON.stringify(client.config, null, 4));
+        //         callback();
+        //     }
+        // });
     }
 };
 
