@@ -1,6 +1,6 @@
 /*eslint no-console: ["error", { allow: ["log"] }] */
 
-import request from '../request-async';
+import request from '../request';
 import config  from '../../config';
 import client  from './client';
 
