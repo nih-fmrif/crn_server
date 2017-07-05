@@ -32,7 +32,10 @@ let config = {
             'user':    process.env.CRN_SERVER_MAIL_USER,
             'pass':    process.env.CRN_SERVER_MAIL_PASS
         }
-    }
+    },
+    forbiddenRequestUrls: [
+        /agave/
+    ]
 };
 
 export default config;
