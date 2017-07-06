@@ -30,7 +30,7 @@ app.use(config.apiPrefix, routes);
 // error handling --------------------------------------------------
 
 app.use(function(err, req, res) {
-    res.header('Content-Type', 'application/json');
+    res.header && res.header('Content-Type', 'application/json');
     var send = {'error' : ''};
     var http_code = (typeof err.http_code === 'undefined') ? 500 : err.http_code;
     if (typeof err.message !== 'undefined' && err.message !== '') {
@@ -46,7 +46,7 @@ app.use(function(err, req, res) {
             send.error = 'there was a problem';
         }
     }
-    res.status(http_code).send(send);
+    res.status && res.status(http_code).send(send);
 });
 
 // start server ----------------------------------------------------
