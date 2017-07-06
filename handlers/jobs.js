@@ -4,7 +4,7 @@
 
 // import agave         from '../libs/agave';
 // import sanitize      from '../libs/sanitize';
-// import scitran       from '../libs/scitran';
+import scitran       from '../libs/scitran';
 // import mongo         from '../libs/mongo';
 // import async         from 'async';
 // import crypto        from 'crypto';
@@ -149,8 +149,10 @@ let handlers = {
     /**
      *  GET Dataset Jobs
      */
-    getDatasetJobs(req, res, next) {
-        next();
+    getDatasetJobs(req, res) {
+
+        res.send([]);
+
         // let snapshot   = req.query.hasOwnProperty('snapshot') && req.query.snapshot == 'true';
         // let datasetId  = req.params.datasetId;
         // let user       = req.user;
