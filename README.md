@@ -1,6 +1,6 @@
 # CRN SERVER
 
-[![CircleCI](https://circleci.com/gh/nih-fmrif/crn_server/tree/dsst.svg?style=shield&circle-token=c57e7206f9ae2f52d2b97da33b7a33c6f76bc41d)](https://circleci.com/gh/nih-fmrif/crn_server/tree/dsst)
+[![CircleCI](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_frontend.svg?style=shield&circle-token=c57e7206f9ae2f52d2b97da33b7a33c6f76bc41d)](https://circleci.com/gh/nih-fmrif/crn_server/tree/dev_frontend)
 
 ## Configuration
 
