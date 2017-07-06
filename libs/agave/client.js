@@ -1,6 +1,6 @@
 /*eslint no-console: ["error", { allow: ["log"] }] */
 
-import request from '../request';
+// import request from '../request';
 import fs     from 'fs';
 import config from '../../config';
 
