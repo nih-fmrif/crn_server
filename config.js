@@ -32,7 +32,11 @@ let config = {
             'user':    process.env.CRN_SERVER_MAIL_USER,
             'pass':    process.env.CRN_SERVER_MAIL_PASS
         }
-    }
+    },
+    forbidRequests: process.env.FORBID_REQUESTS !== 'false',
+    forbiddenRequestUrls: [
+        /^https:\/\/api\.tacc\.utexas\.edu.*/
+    ]
 };
 
 export default config;
