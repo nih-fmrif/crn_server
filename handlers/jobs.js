@@ -4,7 +4,7 @@
 
 // import agave         from '../libs/agave';
 // import sanitize      from '../libs/sanitize';
-import scitran       from '../libs/scitran';
+// import scitran       from '../libs/scitran';
 // import mongo         from '../libs/mongo';
 // import async         from 'async';
 // import crypto        from 'crypto';
