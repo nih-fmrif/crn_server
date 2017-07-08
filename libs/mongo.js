@@ -2,7 +2,10 @@
 
 // dependencies --------------------------------------------------
 
-import {MongoClient} from 'mongodb';
+import diContainer from '../container';
+const mongodb = diContainer.mongodb;
+const MongoClient = mongodb.MongoClient;
+
 import config        from 'config';
 import async         from 'async';
 
