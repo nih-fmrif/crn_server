@@ -8,6 +8,8 @@ import routes     from './routes';
 import bodyParser from 'body-parser';
 import morgan     from 'morgan';
 import mongo      from './libs/mongo';
+import https      from 'https';
+import fs         from 'fs';
 
 // configuration ---------------------------------------------------
 
@@ -22,6 +24,11 @@ app.use((req, res, next) => {
 });
 app.use(morgan('short'));
 app.use(bodyParser.json());
+
+const httpsOptions = {
+    key: fs.readFileSync('./keys/key.pem'),
+    cert: fs.readFileSync('./keys/cert.pem')
+};
 
 // routing ---------------------------------------------------------
 
@@ -54,4 +61,7 @@ app.use(function(err, req, res) {
 app.listen(config.get('api.port.http'), () => {
     console.log('HTTP server is listening on port ' + config.get('api.port.http'));
 });
+
+https.createServer(httpsOptions, app).listen(config.get('api.port.https'), () => {
+    console.log('HTTPS server is listening on port ' + config.get('api.port.https'));
 });
