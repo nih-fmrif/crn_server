@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint *.js **/*.js **/**/*.js **/**/**/*.js",
     "start": "node index.js",
+    "watch": "nodemon index.js",
     "test": "./node_modules/.bin/mocha --compilers js:babel/register tests/**/"
   },
   "repository": {
@@ -31,6 +32,7 @@
     "mongodb": "^2.0.46",
     "morgan": "^1.6.1",
     "nodemailer": "^2.5.0",
+    "nodemon": "^1.11.0",
     "request": "^2.63.0",
     "tar-fs": "^1.9.0",
     "underscore": "^1.8.3"
