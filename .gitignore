@@ -4,3 +4,4 @@ npm-debug.log
 client.config.js
 agave-debug.js
 .idea
+.env
