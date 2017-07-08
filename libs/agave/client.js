@@ -2,7 +2,7 @@
 
 import request from '../request';
 import fs     from 'fs';
-import config from '../../config';
+import config from 'config';
 
 let clientConfig;
 
@@ -22,13 +22,13 @@ if (
     !clientConfig.hasOwnProperty('description')    ||
     !clientConfig.hasOwnProperty('consumerKey')    ||
     !clientConfig.hasOwnProperty('consumerSecret') ||
-    clientConfig.name !== config.agave.clientName
+    clientConfig.name !== config.get('agave.clientName')
 ) {
     clientConfig = {
-        name:           config.agave.clientName,
-        description:    config.agave.clientDescription,
-        consumerKey:    config.agave.consumerKey,
-        consumerSecret: config.agave.consumerSecret
+        name:           config.get('agave.clientName'),
+        description:    config.get('agave.clientDescription'),
+        consumerKey:    config.get('agave.consumerKey'),
+        consumerSecret: config.get('agave.consumerSecret')
     };
     fs.writeFileSync('client.config.js', 'export default ' + JSON.stringify(clientConfig, null, 2));
 }

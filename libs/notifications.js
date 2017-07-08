@@ -1,6 +1,6 @@
 /*eslint no-console: ["error", { allow: ["log"] }] */
 
-import config  from '../config';
+import config  from 'config';
 import cron    from 'cron';
 import mongo   from './mongo';
 import email   from './email';
@@ -60,7 +60,7 @@ let notifications = {
                         startDate:       moment(job.agave.created).format('MMMM Do'),
                         datasetName:     job.datasetLabel,
                         status:          job.agave.status,
-                        siteUrl:         url.parse(config.url).protocol + '//' + url.parse(config.url).hostname,
+                        siteUrl:         url.parse(config.get('url')).protocol + '//' + url.parse(config.get('url')).hostname,
                         datasetId:       job.datasetId,
                         snapshotId:      job.snapshotId,
                         unsubscribeLink: ''

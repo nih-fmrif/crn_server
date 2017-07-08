@@ -1,6 +1,6 @@
 // dependencies ------------------------------------------------------------
 
-import config        from '../config';
+import config        from 'config';
 import scitran       from '../libs/scitran';
 import request       from '../libs/request';
 import notifications from '../libs/notifications';
@@ -22,7 +22,7 @@ export default {
      */
     share(req, res) {
         // proxy add permission request to scitran to avoid extra permissions checks
-        request.post(config.scitran.url + 'projects/' + req.params.datasetId + '/permissions', {
+        request.post(config.get('scitran.url') + 'projects/' + req.params.datasetId + '/permissions', {
             body:         req.body,
             headers:      req.headers,
             query:        req.query,
@@ -38,7 +38,7 @@ export default {
                             email:       req.body._id,
                             datasetId:   req.params.datasetId,
                             datasetName: resp2.body.label,
-                            siteUrl:     url.parse(config.url).protocol + '//' + url.parse(config.url).hostname
+                            siteUrl:     url.parse(config.get('url')).protocol + '//' + url.parse(config.get('url')).hostname
                         };
                         let id = crypto.createHash('md5').update(data.email + data.datasetId + data.siteUrl).digest('hex');
                         notifications.add({

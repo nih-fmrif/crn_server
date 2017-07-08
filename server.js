@@ -3,7 +3,7 @@
 // dependencies ----------------------------------------------------
 
 import express    from 'express';
-import config     from './config';
+import config     from 'config';
 import routes     from './routes';
 import bodyParser from 'body-parser';
 import morgan     from 'morgan';
@@ -16,7 +16,7 @@ mongo.connect();
 let app = express();
 
 app.use((req, res, next) => {
-    res.set(config.headers);
+    res.set(config.get('headers'));
     res.type('application/json');
     next();
 });
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 // routing ---------------------------------------------------------
 
-app.use(config.apiPrefix, routes);
+app.use(config.get('apiPrefix'), routes);
 
 // error handling --------------------------------------------------
 
@@ -51,6 +51,7 @@ app.use(function(err, req, res) {
 
 // start server ----------------------------------------------------
 
-app.listen(config.port, () => {
-    console.log('Server is listening on port ' + config.port);
+app.listen(config.get('api.port.http'), () => {
+    console.log('HTTP server is listening on port ' + config.get('api.port.http'));
+});
 });

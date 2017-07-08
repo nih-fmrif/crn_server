@@ -1,5 +1,5 @@
 import request from './request';
-import config  from '../config';
+import config  from 'config';
 import fs      from 'fs';
 import crypto  from 'crypto';
 import files   from './files';
@@ -20,14 +20,14 @@ export default {
      * user object.
      */
     verifyUser (req, res) {
-        request.getProxy(config.scitran.url + 'users/self', {headers: req.headers, status: 200}, res);
+        request.getProxy(config.get('scitran.url') + 'users/self', {headers: req.headers, status: 200}, res);
     },
 
     /**
      * Is Super User
      */
     isSuperUser(accessToken, callback) {
-        request.get(config.scitran.url + 'users/self', {
+        request.get(config.get('scitran.url') + 'users/self', {
             headers: {
                 Authorization: accessToken
             }
@@ -40,14 +40,14 @@ export default {
      * Get User
      */
     getUser (userId, callback) {
-        request.get(config.scitran.url + 'users/' + userId, {}, callback);
+        request.get(config.get('scitran.url') + 'users/' + userId, {}, callback);
     },
 
     /**
      * Get User by Token
      */
     getUserByToken(accessToken, callback) {
-        request.get(config.scitran.url + 'users/self', {
+        request.get(config.get('scitran.url') + 'users/self', {
             headers: {
                 Authorization: accessToken
             }
@@ -58,7 +58,7 @@ export default {
      * Create User
      */
     createUser(user, callback) {
-        request.post(config.scitran.url + 'users', {body: user}, () => {
+        request.post(config.get('scitran.url') + 'users', {body: user}, () => {
             this.createGroup(user._id, user._id, callback);
         });
     },
@@ -75,7 +75,7 @@ export default {
             _id: groupName,
             name: groupName
         };
-        request.post(config.scitran.url + 'groups', {body: body}, () => {
+        request.post(config.get('scitran.url') + 'groups', {body: body}, () => {
             this.addRole('groups', groupName, {_id: groupName, access: 'admin', site: 'local'}, callback);
         });
     },
@@ -86,14 +86,14 @@ export default {
      */
     getProject (projectId, callback, options) {
         let modifier = options && options.snapshot ? 'snapshots/' : '';
-        request.get(config.scitran.url + modifier + 'projects/' + projectId, {}, callback);
+        request.get(config.get('scitran.url') + modifier + 'projects/' + projectId, {}, callback);
     },
 
     /**
      * Get Project Snapshots
      */
     getProjectSnapshots (projectId, callback) {
-        request.get(config.scitran.url + 'projects/' + projectId + '/snapshots', {
+        request.get(config.get('scitran.url') + 'projects/' + projectId + '/snapshots', {
             query: {public: true}
         }, callback);
     },
@@ -103,7 +103,7 @@ export default {
      *
      */
     updateProject (projectId, body, callback) {
-        request.put(config.scitran.url + 'projects/' + projectId, {body}, (err, res) => {
+        request.put(config.get('scitran.url') + 'projects/' + projectId, {body}, (err, res) => {
             callback(err, res);
         });
     },
@@ -112,7 +112,7 @@ export default {
      * Add Tag
      */
     addTag (containerType, containerId, tag, callback) {
-        request.post(config.scitran.url + containerType + '/' + containerId + '/tags', {
+        request.post(config.get('scitran.url') + containerType + '/' + containerId + '/tags', {
             body: {value: tag}
         }, callback);
     },
@@ -121,14 +121,14 @@ export default {
      * Remove Tag
      */
     removeTag (containerType, containerId, tag, callback) {
-        request.del(config.scitran.url + containerType + '/' + containerId + '/tags/' + tag, {}, callback);
+        request.del(config.get('scitran.url') + containerType + '/' + containerId + '/tags/' + tag, {}, callback);
     },
 
     /**
      * Add Role
      */
     addRole(container, id, role, callback) {
-        request.post(config.scitran.url + container + '/' + id + '/roles', {body: role}, callback);
+        request.post(config.get('scitran.url') + container + '/' + id + '/roles', {body: role}, callback);
     },
 
     /**
@@ -141,7 +141,7 @@ export default {
      */
     downloadSymlinkDataset(datasetId, callback, options) {
         let modifier = options && options.snapshot ? 'snapshots/' : '';
-        request.post(config.scitran.url + modifier + 'download', {
+        request.post(config.get('scitran.url') + modifier + 'download', {
             query: {format: 'bids', query: true},
             body: {
                 nodes: [
@@ -158,10 +158,10 @@ export default {
                 return;
             }
             let ticket = res.body.ticket;
-            request.get(config.scitran.url + 'download', {query: {symlinks: true, ticket: ticket}}, (err2, res2) => {
+            request.get(config.get('scitran.url') + 'download', {query: {symlinks: true, ticket: ticket}}, (err2, res2) => {
                 if (!err2) {
                     let hash = crypto.createHash('md5').update(res2.body).digest('hex');
-                    fs.readdir(config.location + '/persistent/datasets/', (err3, contents) => {
+                    fs.readdir(config.get('location') + '/persistent/datasets/', (err3, contents) => {
                         if (contents && contents.indexOf(hash) > -1) {
                             callback(err, hash);
                         } else {

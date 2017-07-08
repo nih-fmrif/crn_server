@@ -1,4 +1,4 @@
-import config  from '../config';
+import config  from 'config';
 import request from 'request';
 
 /**
@@ -94,9 +94,9 @@ function parseOptions(req, options) {
     if (options.query) {req.qs = options.query;}
     if (options.body) {req.json = options.body;}
     if (options.hasOwnProperty('encoding')) {req.encoding = options.encoding;}
-    if (req.url && req.url.indexOf(config.scitran.url) > -1 && options.droneRequest !== false) {
+    if (req.url && req.url.indexOf(config.get('scitran.url')) > -1 && options.droneRequest !== false) {
         req.headers = {
-            'X-SciTran-Auth': config.scitran.secret,
+            'X-SciTran-Auth': config.get('scitran.secret'),
             'User-Agent': 'SciTran Drone CRN Server'
         };
     }
