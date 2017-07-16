@@ -46,27 +46,19 @@ function redirectUri(req, res) {
     res.redirect(uri);
 }
 
-function handleAuthCallback(req, res) {
-    console.log(req.originalUrl);
-    globusAuth.code.getToken(req.originalUrl)
-        .then((user) => {
-            console.log(user); //=> { accessToken: '...', tokenType: 'bearer', ... }
+async function handleAuthCallback(req, res, next) {
+    try {
+        const authInstance = await globusAuth.code.getToken(req.originalUrl);
+        const updatedUser = await authInstance.refresh();
 
-            // Refresh the current users access token.
-            user.refresh().then((updatedUser) => {
-                console.log(updatedUser !== user); //=> true
-                console.log(updatedUser.accessToken);
-            });
+        const globusUser = await popsicle(updatedUser.sign({
+            method: 'get',
+            url: config.get('globus.userInfoUri')
+        })).then(res => JSON.parse(res.body));
 
-            // Sign API requests on behalf of the current user.
-            user.sign({
-                method: 'get',
-                url: 'http://example.com'
-            });
+        res.redirect(`${config.get('url')}?globusOauth=${encodeURIComponent(JSON.stringify(updatedUser.data))}&globusUser=${encodeURIComponent(JSON.stringify(globusUser))}`);
 
-            // We should store the token into a database.
-            return res.send(user.accessToken);
-        }).catch(err => {
-            console.log(err);
-        });
+    } catch (err) {
+        next(err);
+    }
 }
