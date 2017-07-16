@@ -18,6 +18,12 @@ let routes = [
         handler: globus.redirectUri
     },
     {
+        method: 'post',
+        url: '/auth/globus/refresh',
+        middleware: [],
+        handler: globus.refreshToken
+    },
+    {
         method: 'get',
         url: '/auth/globus/callback',
         middleware: [],
