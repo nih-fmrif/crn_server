@@ -9,9 +9,9 @@ let config = {
         'Access-Control-Allow-Headers': 'content-type, Authorization'
     },
     'scitran': {
-        'url':       process.env.SCITRAN_URL || null,
-        'secret':    process.env.SCITRAN_CORE_DRONE_SECRET || null,
-        'fileStore': process.env.SCITRAN_PERSISTENT_DATA_PATH || null
+        'url':       process.env.SCITRAN_URL,
+        'secret':    process.env.SCITRAN_CORE_DRONE_SECRET,
+        'fileStore': process.env.SCITRAN_PERSISTENT_DATA_PATH
     },
     'agave': {
         'url':               process.env.CRN_SERVER_AGAVE_URL || null,

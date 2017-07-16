@@ -1,6 +1,7 @@
 const config = require('../config');
 
 module.exports = Object.assign({}, config, {
+    url: 'https://localhost:9876',
     api: {
         port: {
             http: 8111,
@@ -10,14 +11,13 @@ module.exports = Object.assign({}, config, {
     mongodb: {
         type: 'memory'
     },
-    auth: {
-        globus: {
-            clientId: 'e8c97607-e511-4408-a9e7-d9ab9901b7b2',
-            clientSecret: '<secret>',
-            accessTokenUri: 'https://auth.globus.org/v2/oauth2/token',
-            authorizationUri: 'https://auth.globus.org/v2/oauth2/authorize',
-            redirectUri: 'https://localhost:8433/crn/auth/globus/callback',
-            scopes: ['urn:globus:auth:scope:transfer.api.globus.org:all', 'openid', 'profile', 'email']
-        }
+    globus: {
+        clientId: 'e8c97607-e511-4408-a9e7-d9ab9901b7b2',
+        clientSecret: '<secret>',
+        accessTokenUri: 'https://auth.globus.org/v2/oauth2/token',
+        authorizationUri: 'https://auth.globus.org/v2/oauth2/authorize',
+        redirectUri: '<env>',
+        userInfoUri: 'https://auth.globus.org/v2/oauth2/userinfo',
+        scopes: ['urn:globus:auth:scope:transfer.api.globus.org:all', 'openid', 'profile', 'email', 'offline_access']
     }
 });

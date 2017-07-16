@@ -1,7 +1,7 @@
 import ClientOAuth2 from 'client-oauth2';
 import config from 'config';
 
-const globusAuth = new ClientOAuth2(config.get('auth.globus'));
+const globusAuth = new ClientOAuth2(config.get('globus'));
 
 export default {
     redirectUri,

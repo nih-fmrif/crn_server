@@ -1,7 +1,6 @@
 module.exports = {
-    auth: {
-        globus: {
-            clientSecret: 'GLOBUS_CLIENT_SECRET'
-        }
+    globus: {
+        clientSecret: 'GLOBUS_CLIENT_SECRET',
+        redirectUri: 'GLOBUS_REDIRECT_URI'
     }
 };
