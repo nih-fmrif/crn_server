@@ -1,6 +1,4 @@
 let config = {
-    'url': process.env.CRN_SERVER_URL,
-    'port': 8111,
     'apiPrefix': '/crn/',
     'location': '/srv/crn-server',
     'headers': {

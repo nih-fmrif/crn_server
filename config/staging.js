@@ -2,17 +2,17 @@ const config = require('../config');
 
 module.exports = Object.assign({}, config, {
     app: {
-        url: 'https://localhost:9876'
+        url: 'https://localhost:8889'
     },
     api: {
-        url: 'https://localhost:8433',
+        url: 'https://localhost:8889',
         port: {
             http: 8111,
             https: 8433
         }
     },
     mongodb: {
-        type: 'memory'
+        type: 'mongodb'
     },
     globus: {
         clientId: '<env>',

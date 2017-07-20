@@ -4,7 +4,6 @@ import config        from 'config';
 import scitran       from '../libs/scitran';
 import request       from '../libs/request';
 import notifications from '../libs/notifications';
-import url           from 'url';
 import crypto        from 'crypto';
 
 // handlers ----------------------------------------------------------------
@@ -38,7 +37,7 @@ export default {
                             email:       req.body._id,
                             datasetId:   req.params.datasetId,
                             datasetName: resp2.body.label,
-                            siteUrl:     url.parse(config.get('url')).protocol + '//' + url.parse(config.get('url')).hostname
+                            siteUrl:     config.get('app.url')
                         };
                         let id = crypto.createHash('md5').update(data.email + data.datasetId + data.siteUrl).digest('hex');
                         notifications.add({
