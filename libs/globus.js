@@ -1,6 +1,5 @@
 import ClientOAuth2 from 'client-oauth2';
 import config from 'config';
-import popsicle from 'popsicle';
 
 const globusAuth = new ClientOAuth2(config.get('globus'));
 
@@ -51,13 +50,7 @@ async function handleAuthCallback(req, res, next) {
         const authInstance = await globusAuth.code.getToken(req.originalUrl);
         const updatedUser = await authInstance.refresh();
 
-        const globusUser = await popsicle(updatedUser.sign({
-            method: 'get',
-            url: config.get('globus.userInfoUri')
-        })).then(res => JSON.parse(res.body));
-
-        res.redirect(`${config.get('url')}?globusOauth=${encodeURIComponent(JSON.stringify(updatedUser.data))}&globusUser=${encodeURIComponent(JSON.stringify(globusUser))}`);
-
+        res.redirect(`${config.get('app.url')}?globusOauth=${encodeURIComponent(JSON.stringify(updatedUser.data))}`);
     } catch (err) {
         next(err);
     }
