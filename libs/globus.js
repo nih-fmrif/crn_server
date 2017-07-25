@@ -63,6 +63,8 @@ async function handleAuthCallback(req, res, next) {
             url: config.get('globus.userInfoUri')
         })).then(res => JSON.parse(res.body));
 
+        globusUser.email = globusUser.email.toLowerCase();
+
         res.redirect(`${config.get('app.url')}?globusOauth=${encodeURIComponent(JSON.stringify(updatedUser.data))}&globusUser=${encodeURIComponent(JSON.stringify(globusUser))}`);
     } catch (err) {
         next(err);
