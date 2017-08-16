@@ -2,10 +2,10 @@ const config = require('../config');
 
 module.exports = Object.assign({}, config, {
     app: {
-        url: 'https://localhost:8889'
+        url: 'https://nido.nimh.nih.gov'
     },
     api: {
-        url: 'https://localhost:8889/',
+        url: 'https://nido.nimh.nih.gov/',
         port: {
             http: 8111,
             https: 8433
