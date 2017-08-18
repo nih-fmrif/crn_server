@@ -64,8 +64,8 @@ let routes = [
     },
 
     // datasets ------------------------------------
-        // Note: most dataset interactions are sent directly to Scitran.
-        // These manage those that need to be modified or proxied.
+    // Note: most dataset interactions are sent directly to Scitran.
+    // These manage those that need to be modified or proxied.
 
     {
         method: 'post',
