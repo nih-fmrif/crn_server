@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import config     from '../../config';
+import config     from 'config';
 import templates  from './templates';
 import juice      from 'juice';
 
@@ -7,10 +7,10 @@ import juice      from 'juice';
 
 // setup email transporter
 var transporter = nodemailer.createTransport({
-    service: config.notifications.email.service,
+    service: config.get('notifications.email.service'),
     auth: {
-        user: config.notifications.email.user,
-        pass: config.notifications.email.pass
+        user: config.get('notifications.email.user'),
+        pass: config.get('notifications.email.pass')
     }
 });
 
@@ -34,7 +34,7 @@ export default {
 
         // configure mail options
         var mailOptions = {
-            from: config.notifications.email.user,
+            from: config.get('notifications.email.user'),
             to: email.to,
             subject: email.subject,
             html: html

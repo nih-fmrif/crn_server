@@ -1,10 +1,10 @@
 /*eslint no-console: ["error", { allow: ["log"] }] */
 
 import request from '../request';
-import config  from '../../config';
+import config  from 'config';
 import client  from './client';
 
-let userAuth   = 'Basic ' + new Buffer(config.agave.username + ':' + config.agave.password).toString('base64'),
+let userAuth   = 'Basic ' + new Buffer(config.get('agave.username') + ':' + config.get('agave.password')).toString('base64'),
     clientAuth = 'Basic ' + new Buffer(client.config.consumerKey + ':' + client.config.consumerSecret).toString('base64');
 
 let token = {
@@ -28,7 +28,7 @@ export default {
      * Create Client
      */
     createClient(callback) {
-        request.post(config.agave.url + 'clients/v2', {
+        request.post(config.get('agave.url') + 'clients/v2', {
             headers: {
                 Authorization: userAuth
             },
@@ -43,7 +43,7 @@ export default {
      * Delete Client
      */
     deleteClient(clientName, callback) {
-        request.del(config.agave.url + 'clients/v2/' + clientName, {
+        request.del(config.get('agave.url') + 'clients/v2/' + clientName, {
             headers: {
                 Authorization: userAuth
             },
@@ -58,7 +58,7 @@ export default {
      * List Clients
      */
     listClients(callback) {
-        request.get(config.agave.url + 'clients/v2', {
+        request.get(config.get('agave.url') + 'clients/v2', {
             headers: {
                 Authorization: userAuth
             }
@@ -71,7 +71,7 @@ export default {
      * Get Access Token
      */
     getAccessToken(callback) {
-        request.post(config.agave.url + 'token', {
+        request.post(config.get('agave.url') + 'token', {
             headers: {
                 authorization: clientAuth,
                 'content-type': 'application/x-www-form-urlencoded'
@@ -101,7 +101,7 @@ export default {
      * Refresh Access Token
      */
     refreshAccessToken(callback) {
-        request.post(config.agave.url + 'token', {
+        request.post(config.get('agave.url') + 'token', {
             headers: {
                 authorization: clientAuth,
                 'content-type': 'application/x-www-form-urlencoded'
@@ -178,7 +178,7 @@ export default {
 
     listApps(callback) {
         this.auth(() => {
-            request.get(config.agave.url + 'apps/v2', {
+            request.get(config.get('agave.url') + 'apps/v2', {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -194,7 +194,7 @@ export default {
 
     getApp(appId, callback) {
         this.auth(() => {
-            request.get(config.agave.url + 'apps/v2/' + appId, {
+            request.get(config.get('agave.url') + 'apps/v2/' + appId, {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -209,7 +209,7 @@ export default {
 
     createJob(job, callback) {
         this.auth(() => {
-            request.post(config.agave.url + 'jobs/v2', {
+            request.post(config.get('agave.url') + 'jobs/v2', {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'content-type': 'application/json',
@@ -224,7 +224,7 @@ export default {
 
     listJobs(callback) {
         this.auth(() => {
-            request.get(config.agave.url + 'jobs/v2/', {
+            request.get(config.get('agave.url') + 'jobs/v2/', {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -237,7 +237,7 @@ export default {
 
     getJob(jobId, callback) {
         this.auth(() => {
-            request.get(config.agave.url + 'jobs/v2/' + jobId, {
+            request.get(config.get('agave.url') + 'jobs/v2/' + jobId, {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -250,7 +250,7 @@ export default {
 
     getJobResults(jobId, callback) {
         this.auth(() => {
-            request.get(config.agave.url + 'jobs/v2/' + jobId + '/outputs/listings/out', {
+            request.get(config.get('agave.url') + 'jobs/v2/' + jobId + '/outputs/listings/out', {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -263,7 +263,7 @@ export default {
 
     getJobLogs(jobId, callback) {
         this.auth(() => {
-            request.get(config.agave.url + 'jobs/v2/' + jobId + '/outputs/listings/log', {
+            request.get(config.get('agave.url') + 'jobs/v2/' + jobId + '/outputs/listings/log', {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -283,11 +283,11 @@ export default {
      */
     getPath(path, callback) {
         this.auth(() => {
-            if (path.indexOf(config.agave.url) === 0) {
-                path = path.slice(config.agave.url.length);
+            if (path.indexOf(config.get('agave.url')) === 0) {
+                path = path.slice(config.get('agave.url').length);
             }
 
-            request.get(config.agave.url + path, {
+            request.get(config.get('agave.url') + path, {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'
@@ -308,7 +308,7 @@ export default {
      */
     getPathProxy(path, res) {
         this.auth(() => {
-            request.getProxy(config.agave.url + path, {
+            request.getProxy(config.get('agave.url') + path, {
                 headers: {
                     Authorization: 'Bearer ' + token.access,
                     'Content-Type': 'application/json'

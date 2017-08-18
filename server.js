@@ -3,11 +3,13 @@
 // dependencies ----------------------------------------------------
 
 import express    from 'express';
-import config     from './config';
+import config     from 'config';
 import routes     from './routes';
 import bodyParser from 'body-parser';
 import morgan     from 'morgan';
 import mongo      from './libs/mongo';
+import https      from 'https';
+import fs         from 'fs';
 
 // configuration ---------------------------------------------------
 
@@ -16,21 +18,26 @@ mongo.connect();
 let app = express();
 
 app.use((req, res, next) => {
-    res.set(config.headers);
+    res.set(config.get('headers'));
     res.type('application/json');
     next();
 });
 app.use(morgan('short'));
 app.use(bodyParser.json());
 
+const httpsOptions = {
+    key: fs.readFileSync('./keys/key.pem'),
+    cert: fs.readFileSync('./keys/cert.pem')
+};
+
 // routing ---------------------------------------------------------
 
-app.use(config.apiPrefix, routes);
+app.use(config.get('apiPrefix'), routes);
 
 // error handling --------------------------------------------------
 
 app.use(function(err, req, res) {
-    res.header('Content-Type', 'application/json');
+    res.header && res.header('Content-Type', 'application/json');
     var send = {'error' : ''};
     var http_code = (typeof err.http_code === 'undefined') ? 500 : err.http_code;
     if (typeof err.message !== 'undefined' && err.message !== '') {
@@ -46,11 +53,15 @@ app.use(function(err, req, res) {
             send.error = 'there was a problem';
         }
     }
-    res.status(http_code).send(send);
+    res.status && res.status(http_code).send(send);
 });
 
 // start server ----------------------------------------------------
 
-app.listen(config.port, () => {
-    console.log('Server is listening on port ' + config.port);
+app.listen(config.get('api.port.http'), () => {
+    console.log('HTTP server is listening on port ' + config.get('api.port.http'));
+});
+
+https.createServer(httpsOptions, app).listen(config.get('api.port.https'), () => {
+    console.log('HTTPS server is listening on port ' + config.get('api.port.https'));
 });

@@ -1,4 +1,4 @@
-import config  from '../config';
+import config  from 'config';
 import fs      from 'fs';
 import async   from 'async';
 import tar     from 'tar-fs';
@@ -23,7 +23,7 @@ export default {
             async.each(files, (path, cb) => {
                 fs.readlink(path, (err, linkPath) => {
                     fs.unlink(path, () => {
-                        fs.symlink(config.scitran.fileStore + '/' + linkPath, path, cb);
+                        fs.symlink(config.get('scitran.fileStore') + '/' + linkPath, path, cb);
                     });
                 });
             }, callback);

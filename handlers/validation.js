@@ -1,6 +1,6 @@
 // dependencies ------------------------------------------------------------
 
-import config   from '../config';
+import config   from 'config';
 import scitran  from '../libs/scitran';
 import validate from 'bids-validator';
 
@@ -21,7 +21,7 @@ export default {
         let datasetId = req.params.datasetId;
 
         scitran.downloadSymlinkDataset(datasetId, (err, hash) => {
-            validate.BIDS(config.location + '/persistent/datasets/' + hash, {}, (validation, summary) => {
+            validate.BIDS(config.get('location') + '/persistent/datasets/' + hash, {}, (validation, summary) => {
                 scitran.updateProject(datasetId, {
                     metadata: {validation, summary}
                 }, () => {

@@ -2,8 +2,11 @@
 
 // dependencies --------------------------------------------------
 
-import {MongoClient} from 'mongodb';
-import config        from '../config';
+import diContainer from '../container';
+const mongodb = diContainer.mongodb;
+const MongoClient = mongodb.MongoClient;
+
+import config        from 'config';
 import async         from 'async';
 
 export default {
@@ -49,7 +52,7 @@ export default {
      */
     connect() {
         async.each(Object.keys(this.dbs), (dbName, cb) => {
-            MongoClient.connect(config.mongo.url + dbName, (err, db) => {
+            MongoClient.connect(config.get('mongo.url') + dbName, (err, db) => {
                 if (err) {
                     console.log(err);
                     process.exit();

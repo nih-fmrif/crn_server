@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint *.js **/*.js **/**/*.js **/**/**/*.js",
     "start": "node index.js",
+    "watch": "nodemon index.js",
     "test": "./node_modules/.bin/mocha --compilers js:babel/register tests/**/"
   },
   "repository": {
@@ -20,13 +21,20 @@
     "babel": "^5.8.23",
     "bids-validator": "0.20.0",
     "body-parser": "^1.14.0",
+    "bottlejs": "^1.6.1",
+    "client-oauth2": "^4.1.0",
+    "config": "^1.26.1",
     "cron": "^1.1.0",
+    "dotenv": "^4.0.0",
     "express": "^4.13.3",
     "juice": "^2.0.0",
     "moment": "^2.14.1",
+    "mongo-mock": "^2.4.1",
     "mongodb": "^2.0.46",
     "morgan": "^1.6.1",
     "nodemailer": "^2.5.0",
+    "nodemon": "^1.11.0",
+    "popsicle": "^9.1.0",
     "request": "^2.63.0",
     "tar-fs": "^1.9.0",
     "underscore": "^1.8.3"

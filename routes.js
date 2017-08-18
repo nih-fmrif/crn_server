@@ -7,8 +7,28 @@ import validation from './handlers/validation';
 import datasets   from './handlers/datasets';
 import auth       from './libs/auth';
 import scitran    from './libs/scitran';
+import globus     from './libs/globus';
 
 let routes = [
+    // authentication flow -------------------------
+    {
+        method: 'get',
+        url: '/auth/globus',
+        middleware: [],
+        handler: globus.redirectUri
+    },
+    {
+        method: 'post',
+        url: '/auth/globus/refresh',
+        middleware: [],
+        handler: globus.refreshToken
+    },
+    {
+        method: 'get',
+        url: '/auth/globus/callback',
+        middleware: [],
+        handler: globus.handleAuthCallback
+    },
 
     // users ---------------------------------------
 
