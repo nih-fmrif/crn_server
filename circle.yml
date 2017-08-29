@@ -6,14 +6,14 @@ machine:
 
 dependencies:
   pre:
-    - docker build -t nihfmrif/$CIRCLE_PROJECT_REPONAME:${CIRCLE_BRANCH}-latest .
+    - docker build -t nihfmrif/$CIRCLE_PROJECT_REPONAME:$([ "$CIRCLE_BRANCH" == dev ] && echo "dev-" || echo "")$(node -p -e "require('./package.json').version") .
 
 test:
   override:
     # Lint
-    - docker run nihfmrif/$CIRCLE_PROJECT_REPONAME:${CIRCLE_BRANCH}-latest npm run lint
+    - docker run nihfmrif/$CIRCLE_PROJECT_REPONAME:$([ "$CIRCLE_BRANCH" == dev ] && echo "dev-" || echo "")$(node -p -e "require('./package.json').version") npm run lint
     # Unit Tests
-    - docker run nihfmrif/$CIRCLE_PROJECT_REPONAME:${CIRCLE_BRANCH}-latest npm run test
+    - docker run nihfmrif/$CIRCLE_PROJECT_REPONAME:$([ "$CIRCLE_BRANCH" == dev ] && echo "dev-" || echo "")$(node -p -e "require('./package.json').version") npm run test
 
 deployment:
   # development:
@@ -26,4 +26,5 @@ deployment:
     branch: dev_frontend
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push nihfmrif/$CIRCLE_PROJECT_REPONAME:${CIRCLE_BRANCH}-latest
+      - docker tag nihfmrif/$CIRCLE_PROJECT_REPONAME:$(node -p -e "require('./package.json').version") nihfmrif/$CIRCLE_PROJECT_REPONAME:latest
+      - docker push nihfmrif/$CIRCLE_PROJECT_REPONAME
